@@ -1,0 +1,1 @@
+..\avrdude -v -p atmega328p -c usbasp  -U flash:w:%1:i
