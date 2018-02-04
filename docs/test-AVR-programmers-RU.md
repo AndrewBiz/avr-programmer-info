@@ -17,7 +17,7 @@
 
 -----------
 # Прошивка МК через порт SPI
-Прошивка специальным внешним (или гибридным) программатором, подключаясь к пинам SPI порта чипа.
+Прошивка специальным внешним (или гибридным) программатором, подключаясь к пинам SPI порта целевого чипа.
 
 **Плюсы**
 
@@ -40,6 +40,9 @@
 
 #### Изображение
 
+[image-face]: /docs/pics/USBASP-AVR-programmer.jpg "USBasp front-side"
+![USBasp front-side][image-face]
+
 #### Характеристики
 
 |Характерисика | Описание     |
@@ -49,10 +52,32 @@
 | Windows driver| USB для Win7: libusb-win32 v1.2.6
 | Выход (порт на целевой чип) | Стандарт ICSP 10 пин
 | Производитель | http://www.fischl.de/usbasp/
-| Версия прошивки | последняя: usbasp.2011-05-28 <br> *Требуется прошивка МК, т.к. китайты поставляют старую прошивку, которая может выдавать ошибки\предупреждения!*
+| Версия прошивки | самая свежая на момент тестирования: usbasp.2011-05-28 <br> *Требуется прошивка МК, т.к. китайты поставляют старую прошивку, которая может выдавать ошибки\предупреждения!*<br>*Рекомендуется запрограммировать (прошить 0) FUSE-бит CKOPT - это увеличивает максимальную частоту МК до 16 МГц*
 | Где купить | [пример на ALIEXPRESS за 1.5 USD]( https://ru.aliexpress.com/item/1pcs-New-USBASP-USBISP-AVR-Programmer-USB-ISP-USB-ASP-ATMEGA8-ATMEGA128-Support-Win7-64K/32653187143.html?spm=a2g0s.9042311.0.0.NNvfPE)
 | Обзоры| [Неплохой обзор на Микроконтроллер.ру](http://microkontroller.ru/programmirovanie-mikrokontrollerov-avr/usbasp-usb-avr-programmator/)
-| Программа для прошивки | avrdude ver6.3 = OK<br> avrdude ver6.0 = NOK ()
-| Особенности | не использовать параметр -D (отмена очистки памяти перед прошивкой) - будут глюки
 
-#### Тесты
+#### Тесты AVRDUDE (командная строка)
+Программа входит в стандартный AVR toolchain. Сайт разработчика: http://savannah.nongnu.org/projects/avrdude/
+
+**Важно** не нужно использовать параметр `-D` (отмена очистки памяти перед прошивкой). Т.е. FLASH память должна обнуляться перед прошивкой. В противном случае часто вылезают ошибки верификации и прошитая программа не работает.
+
+Ниже представлены результаты тестов путем прошивки контроллера ATMEGA328P (плата ARDUINO) командой:
+
+```shell
+avrdude -v -p atmega328p -c usbasp  -U flash:w:firmware.hex:i
+```
+
+| Test case | Результат | Комментарий  |
+|-----------|:------:|--------------|
+| avrdude 6.3 - [стандартная](http://savannah.nongnu.org/forum/forum.php?forum_id=8461)| **Ok** | Прошивка работает нормально с правильным USB драйвером|
+| avrdude 6.0.1 (найдена [на форуме easyelectronics](http://forum.easyelectronics.ru/))|Nok| error: programm enable: target doesn't answer |
+| avrdude 5.10 [DI HALT edition](http://easyelectronics.ru/files/soft/avrdude.zip) |Nok| error: no usb support. please compile again with libusb installed|
+| avrdude 5.11patch (в составе SinaProg 2.1)| **Ok**| Прошивка работает нормально с правильным USB драйвером|
+| avrdude 6.1svn (в составе AVRDUDE_PROG 3.3) |**Ok** | Прошивка работает нормально с правильным USB драйвером|
+
+#### Тесты Windows GUI программ-прошивальщиков
+
+| GUI программа | Тип | Сайт | Комментарий  |
+|---------------|-----|------|--------------|
+|ADS v 11.11.2011 | Оболочка над avrdude | [скачать](http://easyelectronics.ru/files/soft/ADS.ZIP) | Ок. Гибкая программа, все параметры вызова avrdude настраиваются, информация о фьюзах подтягивается онлайн. <br> Можно генерировать Cmd файлы для последующего автономного использования. <br> Консультант [DI HALT](http://easyelectronics.ru/author/di-halt)
+|SinaProg 2.1| Оболочка над avrdude | официальный сайт недоступен | Слабовата на фоне других программ. Бывают непонятные ошибки запуска avrdude |
