@@ -79,5 +79,8 @@ avrdude -v -p atmega328p -c usbasp  -U flash:w:firmware.hex:i
 
 | GUI программа | Тип | Сайт | Комментарий  |
 |---------------|-----|------|--------------|
-|ADS v 11.11.2011 | Оболочка над avrdude | [скачать](http://easyelectronics.ru/files/soft/ADS.ZIP) | Ок. Гибкая программа, все параметры вызова avrdude настраиваются, информация о фьюзах подтягивается онлайн. <br> Можно генерировать Cmd файлы для последующего автономного использования. <br> Консультант [DI HALT](http://easyelectronics.ru/author/di-halt)
-|SinaProg 2.1| Оболочка над avrdude | официальный сайт недоступен | Слабовата на фоне других программ. Бывают непонятные ошибки запуска avrdude |
+| platformIO core v3.5.2a | Оболочка над avrdude, <br> IDE на базе Atom или VSCode  | http://platformio.org/ | Ок. Лучшая среда разработки и прошивки МК (михо) <br> **Важно!!** Для прошивки целевого чипа нужно: <br> 1) В параметрах **platformio.ini** указать программатор: <br>`upload_protocol = usbasp` <br> `upload_flags = -Pusb` <br> 2) Для прошивки чипа использовать команду `program` (ctrl-shift-alt-p), а не `upload` (ctrl-alt-u)
+|ADS v 11.11.2011 | Оболочка над avrdude | [скачать](http://easyelectronics.ru/files/soft/ADS.ZIP) | Ок. Гибкая программа, все параметры вызова avrdude настраиваются, информация о фьюзах подтягивается онлайн. <br> Можно генерировать Cmd файлы для последующего автономного использования. <br> Консультант - сам [DI HALT](http://easyelectronics.ru/author/di-halt)
+|SinaProg 2.1| Оболочка над avrdude | официальный сайт недоступен | Nok. Слабовата на фоне других программ. Бывают непонятные ошибки запуска avrdude |
+| Arduino IDE 1.8.5| IDE и оболочка над avrdude| https://www.arduino.cc/ | Nok. Хреновая IDE, глючная оболочка. Тестируемый программатор не заработал ни для обычной прошивки чипа, ни для прошивки бутлоадера|
+|AVRDUDE_PROG 3.3|Оболочка над avrdude|[Сайт разработчика](http://www.yourdevice.net/proekty/avrdude-prog)|Ок. Гибкая, вполне удобная|
