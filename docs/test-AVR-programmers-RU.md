@@ -16,6 +16,9 @@
  - нет возможности тонкой настройки чипа - прошивки фьюзов (например, защита от чтения прошивки)
 
 -----------
+
+------
+
 # Прошивка МК через порт SPI
 Прошивка специальным внешним (или гибридным) программатором, подключаясь к пинам SPI порта целевого чипа.
 
@@ -32,7 +35,7 @@
  - Нужно делать на плате устройства 6 пиновый разъем
  - нужен отдельный (внешний) программатор
 
-
+----------------------------------------------------
 ### (SPI) Программатор USBasp
 
 #### Принцип действия
@@ -56,7 +59,7 @@
 | Где купить | [пример на ALIEXPRESS за 1.5 USD]( https://ru.aliexpress.com/item/1pcs-New-USBASP-USBISP-AVR-Programmer-USB-ISP-USB-ASP-ATMEGA8-ATMEGA128-Support-Win7-64K/32653187143.html?spm=a2g0s.9042311.0.0.NNvfPE)
 | Обзоры| [Неплохой обзор на Микроконтроллер.ру](http://microkontroller.ru/programmirovanie-mikrokontrollerov-avr/usbasp-usb-avr-programmator/)
 
-#### Тесты AVRDUDE (командная строка)
+#### (USBasp) Тесты AVRDUDE (командная строка)
 Программа входит в стандартный AVR toolchain. Сайт разработчика: http://savannah.nongnu.org/projects/avrdude/
 
 **Важно** не нужно использовать параметр `-D` (отмена очистки памяти перед прошивкой). Т.е. FLASH память должна обнуляться перед прошивкой. В противном случае часто вылезают ошибки верификации и прошитая программа не работает.
@@ -69,13 +72,13 @@ avrdude -v -p atmega328p -c usbasp  -U flash:w:firmware.hex:i
 
 | Test case | Результат | Комментарий  |
 |-----------|:------:|--------------|
-| avrdude 6.3 - [стандартная](http://savannah.nongnu.org/forum/forum.php?forum_id=8461)| **Ok** | Прошивка работает нормально с правильным USB драйвером|
+| avrdude 6.3 - [стандартная](http://savannah.nongnu.org/forum/forum.php?forum_id=8461)| **Ok** | Прошивка чипа происходит без ошибок с правильным USB драйвером|
 | avrdude 6.0.1 (найдена [на форуме easyelectronics](http://forum.easyelectronics.ru/))|Nok| error: programm enable: target doesn't answer |
 | avrdude 5.10 [DI HALT edition](http://easyelectronics.ru/files/soft/avrdude.zip) |Nok| error: no usb support. please compile again with libusb installed|
-| avrdude 5.11patch (в составе SinaProg 2.1)| **Ok**| Прошивка работает нормально с правильным USB драйвером|
-| avrdude 6.1svn (в составе AVRDUDE_PROG 3.3) |**Ok** | Прошивка работает нормально с правильным USB драйвером|
+| avrdude 5.11patch (в составе SinaProg 2.1)| **Ok**| Прошивка чипа происходит без ошибок с правильным USB драйвером|
+| avrdude 6.1svn (в составе AVRDUDE_PROG 3.3) |**Ok** | Прошивка чипа происходит без ошибок с правильным USB драйвером|
 
-#### Тесты Windows GUI программ-прошивальщиков
+#### <a name="gui-soft"></a> (USBasp) Тесты Windows GUI программ-прошивальщиков
 
 | GUI программа | Тип | Сайт | Комментарий  |
 |---------------|-----|------|--------------|
@@ -85,7 +88,7 @@ avrdude -v -p atmega328p -c usbasp  -U flash:w:firmware.hex:i
 | Arduino IDE 1.8.5| IDE и оболочка над avrdude| https://www.arduino.cc/ | Nok. Хреновая IDE, глючная оболочка. Тестируемый программатор не заработал ни для обычной прошивки чипа, ни для прошивки бутлоадера|
 |AVRDUDE_PROG 3.3|Оболочка над avrdude|[Сайт разработчика](http://www.yourdevice.net/proekty/avrdude-prog)|Ок. Гибкая, вполне удобная|
 
-
+--------------------------------------------------------------------
 ### (SPI) Программатор на базе модуля FT2232C (DI HALT)
 
 #### Принцип действия
@@ -100,3 +103,62 @@ avrdude -v -p atmega328p -c usbasp  -U flash:w:firmware.hex:i
 
 |Характерисика | Описание     |
 |--------------:|:--------------|
+| Мозги устройства    | Микросхема FTDI FT2232C
+| Вход (порт на комп) | USB порт (в устройствах Windows виден как COM порт)
+| Windows driver| FTDI для Win7: v2.12.28
+| Выход (порт на целевой чип) | Стандарт ICSP 10 пин (при использовании [модуля расширения](http://shop.easyelectronics.ru/index.php?productID=165))
+| Производитель | http://shop.easyelectronics.ru/index.php?productID=163
+| Версия прошивки | прошивка микросхеме FTDI не нужна
+
+#### (FT2232C) Тесты AVRDUDE (командная строка)
+Программа входит в стандартный AVR toolchain. Сайт разработчика: http://savannah.nongnu.org/projects/avrdude/
+
+**Важно** не нужно использовать параметр `-D` (отмена очистки памяти перед прошивкой). Т.е. FLASH память должна обнуляться перед прошивкой.
+
+Ниже представлены результаты тестов путем прошивки контроллера ATMEGA328P (плата ARDUINO) командой:
+
+```shell
+avrdude -v -p atmega328p -c 2ftbb -P ft0 -U flash:w:firmware.hex:i
+```
+*Примечание*: необходимо в файл avrdude.conf вручную добавить конфигурацию программатора ибо он нестандартен:
+ - для avrdude версии < 6 параметры выглядят так:
+```ini
+#FTDI_Bitbang
+programmer
+  id    = "2ftbb";
+  desc  = "FT232R Synchronous BitBang DI-HALT";
+  type  = ft245r;
+  miso  = 5;  # DCD
+  sck   = 6;  # DSR
+  mosi  = 4;  # CTS
+  reset = 7;  # RI
+;  
+```
+ - для avrdude версии > 6 параметры выглядят так:
+```ini
+programmer
+  id    = "2ftbb";
+  desc  = "FTDI DI-HALT with ICSP adapter";
+  type  = "ftdi_syncbb";
+  connection_type = usb;
+  miso  = 5;
+  sck   = 6;
+  mosi  = 4;
+  reset = 7;
+;
+```
+
+| Test case | Результат | Комментарий  |
+|-----------|:------:|--------------|
+| avrdude 6.3 - [стандартная](http://savannah.nongnu.org/forum/forum.php?forum_id=8461)| Nok | error: no pthread support. Please compile again with pthread installed|
+| avrdude 6.0.1 (найдена [на форуме easyelectronics](http://forum.easyelectronics.ru/))|Nok| error: no ftdi support. Please compile again with libftdi installed|
+| avrdude 5.10 [DI HALT edition](http://easyelectronics.ru/files/soft/avrdude.zip) |**Ok**| Прошивка чипа происходит без ошибок |
+| avrdude 5.11patch (в составе SinaProg 2.1)| Nok | Данная сборка avrdude не знает про ftdi bitbang режим - невозможно настроить avrdude.conf |
+| avrdude 6.1svn (в составе AVRDUDE_PROG 3.3) |Nok|error: no pthread support. Please compile again with pthread installed|
+
+#### Test chapter name
+
+#### (FT2232C) Тесты Windows GUI программ-прошивальщиков
+[go here 1](#gui-soft)
+
+[go here 2](#markdown-header-test-chapter-name)
