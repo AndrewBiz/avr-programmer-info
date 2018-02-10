@@ -1,0 +1,1 @@
+..\avrdude -v -p atmega168 -c usbasp  -U flash:w:%1:i
