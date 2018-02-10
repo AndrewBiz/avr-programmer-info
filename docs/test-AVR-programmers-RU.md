@@ -38,9 +38,11 @@ avrdude -v -p atmega168 -c arduino -b 19200 -P COM3 -D -U flash:w:firmware.hex:i
 | FTDI FT232 |*|*|
 | CH 340G    |*|*|
 | CP 2102    |*|*|
-| [PL2303XA-USB-TTL](https://ru.aliexpress.com/item/Free-shipping-3pcs-lot-1PCS-PL2303-1PCS-CP2102-1PCS-CH340-USB-TO-TTL/32649042986.html?spm=a2g0s.9042311.0.0.eQKB6C)|![PL2303XA-USB-TTL](/docs/pics/PL2303-USB-TTL-adapter.jpg)|**Nok НЕ РАБОТАЕТ**. Процесс прошивки повисает на 87%.<br> Также требуется не забывать нажимать RESET на целевом МК в момент запуска прошивки|
+| [PL2303XA-USB-TTL](https://ru.aliexpress.com/item/Free-shipping-3pcs-lot-1PCS-PL2303-1PCS-CP2102-1PCS-CH340-USB-TO-TTL/32649042986.html?spm=a2g0s.9042311.0.0.eQKB6C)|![PL2303XA-USB-TTL][PL2303XA-USB-TTL-adapter]|**Nok НЕ РАБОТАЕТ**. Процесс прошивки повисает на 87%.<br> Также требуется не забывать нажимать RESET на целевом МК в момент запуска прошивки|
 | Arduino (m16u2)|*|*|
 | Arduino (CH340)|*|*|
+
+[PL2303XA-USB-TTL-adapter]: /docs/pics/PL2303-USB-TTL-adapter.jpg
 
 -----------
 
