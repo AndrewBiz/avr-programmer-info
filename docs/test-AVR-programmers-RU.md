@@ -34,15 +34,16 @@ avrdude -v -p atmega168 -c arduino -b 19200 -P COM3 -D -U flash:w:firmware.hex:i
 
 | Устройство | Изображение | Комментарий  |
 |------------|------|--------------|
-| [FT232RL-USB-Serial](https://ru.aliexpress.com/item/FT232RL-USB-To-Serial-Adapter-Module-Pro-Mini-Atmega168-5V-16M-for-Arduino/1960622904.html?spm=a2g0v.10010108.1000016/B.1.66f71406HJ5koX&isOrigTitle=true)| ![FT232RL-USB-Serial](/docs/pics/FT232RL-USB2Serial-adapter.jpg "FT232RL-USB-Serial")|**Ok** <br> Замечательно прошивает, не требует никаких особых телодвиждений
+| [FT232RL-USB-Serial](https://ru.aliexpress.com/item/FT232RL-USB-To-Serial-Adapter-Module-Pro-Mini-Atmega168-5V-16M-for-Arduino/1960622904.html?spm=a2g0v.10010108.1000016/B.1.66f71406HJ5koX&isOrigTitle=true)| ![FT232RL-picture][FT232RL-USB-Serial]|**Ok** <br> Замечательно прошивает, не требует никаких особых телодвиждений
 | FTDI FT232 |*|*|
 | CH 340G    |*|*|
 | CP 2102    |*|*|
-| [PL2303XA-USB-TTL](https://ru.aliexpress.com/item/Free-shipping-3pcs-lot-1PCS-PL2303-1PCS-CP2102-1PCS-CH340-USB-TO-TTL/32649042986.html?spm=a2g0s.9042311.0.0.eQKB6C)|![PL2303XA-USB-TTL][PL2303XA-USB-TTL-adapter]|**Nok НЕ РАБОТАЕТ**. Процесс прошивки повисает на 87%.<br> Также требуется не забывать нажимать RESET на целевом МК в момент запуска прошивки|
+| [PL2303XA-USB-TTL](https://ru.aliexpress.com/item/Free-shipping-3pcs-lot-1PCS-PL2303-1PCS-CP2102-1PCS-CH340-USB-TO-TTL/32649042986.html?spm=a2g0s.9042311.0.0.eQKB6C)|![PL2303XA-picture][PL2303XA-USB-TTL]|**Nok НЕ РАБОТАЕТ**. Процесс прошивки повисает на 87%.<br> Также требуется не забывать нажимать RESET на целевом МК в момент запуска прошивки|
 | Arduino (m16u2)|*|*|
 | Arduino (CH340)|*|*|
 
-[PL2303XA-USB-TTL-adapter]: /docs/pics/PL2303-USB-TTL-adapter.jpg
+[PL2303XA-USB-TTL]: /docs/pics/PL2303-USB-TTL-adapter.jpg
+[FT232RL-USB-Serial]: /docs/pics/FT232RL-USB-Serial-adapter.jpg
 
 -----------
 
