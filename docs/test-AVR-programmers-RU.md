@@ -34,21 +34,32 @@ avrdude -v -p atmega168 -c arduino -b 19200 -P COM3 -D -U flash:w:firmware.hex:i
 
 | Устройство | Изображение | Комментарий  |
 |------------|------|--------------|
-|[FT232RL-USB-Serial](https://ru.aliexpress.com/item/FT232RL-USB-To-Serial-Adapter-Module-Pro-Mini-Atmega168-5V-16M-for-Arduino/1960622904.html?spm=a2g0v.10010108.1000016/B.1.66f71406HJ5koX&isOrigTitle=true)| ![FT232RL-picture][FT232RL-USB-Serial]|**Ok** <br> Замечательно прошивает, не требует никаких особых телодвиждений, работает в режиме моста UART-Host|
-|[FT232RL-red-USB-Serial](https://ru.aliexpress.com/item/20pcs-lot-FT232RL-FT232-USB-TO-TTL-5V-3-3V-Download-Cable-To-Serial-Adapter-Module/1913268497.html?spm=a2g0s.9042311.0.0.eQKB6C)| ![FT232RL-picture][FT232RL-red-USB-Serial]|**Nok - прошивка НЕ РАБОТАЕТ** (sync error). <br> **Ок** - работа в режиме моста UART-Host (взаимодействие с МК через программу-терминал на хосте)|
-|[CH340G-USB-TTL](https://ru.aliexpress.com/item/Free-shipping-3pcs-lot-1PCS-PL2303-1PCS-CP2102-1PCS-CH340-USB-TO-TTL/32649042986.html?spm=a2g0s.9042311.0.0.eQKB6C)| ![CH340G-picture][CH340G-USB-TTL]|**Ok** Работает и прошивка и мост UART-Host<br> Требуется жать и отпускать RESET на целевом чипе, чтобы прошивка стартовала|
-|[CP2102-USB-TTL](https://ru.aliexpress.com/item/Free-shipping-3pcs-lot-1PCS-PL2303-1PCS-CP2102-1PCS-CH340-USB-TO-TTL/32649042986.html?spm=a2g0s.9042311.0.0.eQKB6C)| ![CP2102-picture][CP2102-USB-TTL]|**Ok** Работает и прошивка и мост UART-Host<br> Требуется жать и отпускать RESET на целевом чипе, чтобы прошивка стартовала|
-|[PL2303XA-USB-TTL](https://ru.aliexpress.com/item/Free-shipping-3pcs-lot-1PCS-PL2303-1PCS-CP2102-1PCS-CH340-USB-TO-TTL/32649042986.html?spm=a2g0s.9042311.0.0.eQKB6C)|![PL2303XA-picture][PL2303XA-USB-TTL]|**Nok - прошивка НЕ РАБОТАЕТ**. Процесс прошивки повисает на 87%.<br> Требуется не забывать нажимать RESET на целевом МК в момент запуска прошивки <br>  **Ок** - работа в режиме моста UART-Host (взаимодействие с МК через программу-терминал на хосте) |
-| Arduino (m16u2)|*|*|
-| Arduino (CH340)|*|*|
+|[FT232RL-USB-Serial][FT232RL-USB-Serial-link]| ![FT232RL-picture][FT232RL-USB-Serial]|**Ok** <br> Замечательно прошивает, не требует никаких особых телодвиждений, работает в режиме моста UART-Host|
+|[FT232RL-red-USB-Serial][FT232RL-red-USB-Serial-link]| ![FT232RL-picture][FT232RL-red-USB-Serial]|**Nok - прошивка НЕ РАБОТАЕТ** (sync error). <br> **Ок** - работа в режиме моста UART-Host (взаимодействие с МК через программу-терминал на хосте)|
+|[CH340G-USB-TTL][CH340G-CP2102-PL2303-USB-TTL-link] | ![CH340G-picture][CH340G-USB-TTL]|**Ok** Работает и прошивка и мост UART-Host<br> Требуется жать и отпускать RESET на целевом чипе, чтобы прошивка стартовала|
+|[CP2102-USB-TTL][CH340G-CP2102-PL2303-USB-TTL-link]| ![CP2102-picture][CP2102-USB-TTL]|**Ok** Работает и прошивка и мост UART-Host<br> Требуется жать и отпускать RESET на целевом чипе, чтобы прошивка стартовала|
+|[PL2303XA-USB-TTL][CH340G-CP2102-PL2303-USB-TTL-link]|![PL2303XA-picture][PL2303XA-USB-TTL]|**Nok - прошивка НЕ РАБОТАЕТ**. Процесс прошивки повисает на 87%.<br> Требуется не забывать нажимать RESET на целевом МК в момент запуска прошивки <br>  **Ок** - работа в режиме моста UART-Host (взаимодействие с МК через программу-терминал на хосте) |
+|[Arduino Original (m16u2)][Arduino-orig-link]|![Arduino official][Arduino-orig]|**Ok** Замечательно прошивает, не требует никаких особых телодвиждений, работает в режиме моста UART-Host. <br>* В качестве USB-UART переходника используется полноценный микроконтроллер ATMEGA16u2. Т.е. на родной плате Arduino Uno имеем целых два МК от Атмел*|
+|[Arduino China (CH340)][Arduino-china-link]  |![Arduino China][Arduino-china]|**Ok** Замечательно прошивает, не требует никаких особых телодвиждений, работает в режиме моста UART-Host. <br> * В качестве USB-UART переходника используется китайский чип CH340G. Работает вполне надежно, при этом на порядок дешевле варианта m16u2*|
+
+
+[FT232RL-USB-Serial-link]: https://ru.aliexpress.com/item/FT232RL-USB-To-Serial-Adapter-Module-Pro-Mini-Atmega168-5V-16M-for-Arduino/1960622904.html?spm=a2g0v.10010108.1000016/B.1.66f71406HJ5koX&isOrigTitle=true
+[FT232RL-red-USB-Serial-link]: https://ru.aliexpress.com/item/20pcs-lot-FT232RL-FT232-USB-TO-TTL-5V-3-3V-Download-Cable-To-Serial-Adapter-Module/1913268497.html?spm=a2g0s.9042311.0.0.eQKB6C
+[CH340G-CP2102-PL2303-USB-TTL-link]: https://ru.aliexpress.com/item/Free-shipping-3pcs-lot-1PCS-PL2303-1PCS-CP2102-1PCS-CH340-USB-TO-TTL/32649042986.html?spm=a2g0s.9042311.0.0.eQKB6C
+[Arduino-orig-link]: https://store.arduino.cc/usa/arduino-uno-rev3
+[Arduino-china-link]: https://www.aliexpress.com/item/Free-shipping-UNO-R3-MEGA328P-for-Arduino-Compatible-with-USB-cable-and-9V-battery-clip-snap/1960629582.html?spm=2114.12010108.1000013.3.1c744149ip0JhR&traffic_analysisId=recommend_2088_2_-1_iswistore&scm=1007.13339.90158.0&pvid=a426d722-30f2-45f7-a15e-995602897287&tpp=1
 
 [FT232RL-USB-Serial]: /docs/pics/FT232RL-USB-Serial-adapter.jpg
 [FT232RL-red-USB-Serial]: /docs/pics/FT232RL-red-USB-Serial-adapter.jpg
 [CH340G-USB-TTL]: /docs/pics/CH340G-USB-TTL-adapter.jpg
 [CP2102-USB-TTL]: /docs/pics/CP2102-USB-TTL-adapter.jpg
 [PL2303XA-USB-TTL]: /docs/pics/PL2303-USB-TTL-adapter.jpg
+[Arduino-orig]: /docs/pics/Arduino-Uno-official.jpg
+[Arduino-china]: /docs/pics/Arduino-Uno-CH340G.jpg
+
 
 -----------
+
 
 # Прошивка МК через порт SPI
 Прошивка специальным внешним (или гибридным) программатором, подключаясь к пинам SPI порта целевого чипа.
